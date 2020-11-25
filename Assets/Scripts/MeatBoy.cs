@@ -61,11 +61,11 @@ public class MeatBoy : MonoBehaviour{
         }
     }
     // nice trick for debugging:
-    // private void OnControllerColliderHit(ControllerColliderHit hit){
-    //     Debug.Log(hit.gameObject.name);
+    private void OnControllerColliderHit(ControllerColliderHit hit){
+        Debug.Log(hit.gameObject.name);
 
-    //     hit.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-    // }
+        hit.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+    }
     public void Die(){
         // this is only working when i destroy the character...
         transform.position = defaultPosition;

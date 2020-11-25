@@ -16,20 +16,20 @@ public class Chronometer : MonoBehaviour
         minutes = (int)(bestScore/60f);
         secondes = (int)(bestScore%60f);
         fraction = (int)((bestScore*100f)%100f);
-        setBestScore(bestScore);
+        //setBestScore(bestScore);
         Debug.Log("Best score is:" + bestScore);
     }
 
     void Start() {
-        bestScoreString = "Best : " + minutes + ":" + secondes + ":" + fraction;
         //bestScore = 600f;
         if(PlayerPrefs.HasKey("BestScore") == true){
             bestScore = PlayerPrefs.GetInt("BestScore");
+            // setBestScore(bestScore);
         }else{
             bestScore = 0f;
             setBestScore(bestScore);   
         }
-        
+        bestScoreString = "Best : " + minutes + ":" + secondes + ":" + fraction;
     }
     void setBestScore(float score){
         PlayerPrefs.SetInt("BestScore", (int)(score));
@@ -44,7 +44,7 @@ public class Chronometer : MonoBehaviour
     public void End(){
         if(chrono<bestScore){
             setBestScore(chrono);
-            SceneManager.LoadScene("Nivel");
+            SceneManager.LoadScene("Victory");
             Debug.Log("Fin!");
         }
 
