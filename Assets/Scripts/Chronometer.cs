@@ -6,27 +6,28 @@ using UnityEngine.SceneManagement;
 public class Chronometer : MonoBehaviour
 {
     private float chrono = 0f;
-    private float minutes, secondes, fraction;
+    private float minutes, secondes, fraction, b_minutes, b_secondes, b_fraction;
     public Text chronoUI;
-    private float bestScore = 600f;
+    private float bestScore = 60f;
     private string bestScoreString;
 
     void Awake() {
-        minutes = (int)(bestScore/60f);
-        secondes = (int)(bestScore%60f);
-        fraction = (int)((bestScore*100f)%100f);
+        b_minutes = (int)(bestScore/60f);
+        b_secondes = (int)(bestScore%60f);
+        b_fraction = (int)((bestScore*100f)%100f);
         //setBestScore(bestScore);
-        Debug.Log("Best score is:" + bestScore);
+        //Debug.Log("Best score is:" + bestScore);
+        //PlayerPrefs.DeleteAll();
     }
 
     void Start() {
+        bestScore = 600f;
         if(PlayerPrefs.HasKey("BestScore") == true){
             bestScore = PlayerPrefs.GetInt("BestScore");
         }else{
-            bestScore = 600f;
             setBestScore(bestScore);   
         }
-        bestScoreString = "Best : " + minutes + ":" + secondes + ":" + fraction;
+        bestScoreString = "Best : " + b_minutes + ":" + b_secondes + ":" + b_fraction;
     }
     void setBestScore(float score){
         PlayerPrefs.SetInt("BestScore", (int)(score));
@@ -39,11 +40,16 @@ public class Chronometer : MonoBehaviour
         chronoUI.text = bestScoreString + "\n" + "Temps : " + minutes + ":" + secondes + ":" + fraction;
     }
     public void End(){
+        Debug.Log("Chrono: " +chrono);
+        Debug.Log("BestScore: " +bestScore);
         if(chrono<bestScore){
             setBestScore(chrono);
-            SceneManager.LoadScene("Victory");
-            Debug.Log("Fin!");
-        }
+            b_minutes = (int)(chrono/60f);
+            b_secondes = (int)(chrono%60f);
+            b_fraction = (int)((chrono*100f)%100f);
 
+        }
+        Debug.Log("Fin!");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

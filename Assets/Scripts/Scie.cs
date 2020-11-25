@@ -14,7 +14,8 @@ public class Scie : MonoBehaviour{
         if(other.gameObject.tag == "FraiseBoy"){
         //Instantiate goutte...
         for (int i = 0; i < 10; i++){
-        Instantiate(gouttePrefab, transform.position*speed*i, Quaternion.identity);
+            Vector3 motion = new Vector3(Random.Range(-2.0f, 2.0f),Random.Range(-2.0f, 2.0f),0);
+            Instantiate(gouttePrefab, transform.position+motion*i, Quaternion.identity);
         }
         GetComponent<Renderer>().material.mainTexture = tache;
         other.gameObject.GetComponent<MeatBoy>().Die();
