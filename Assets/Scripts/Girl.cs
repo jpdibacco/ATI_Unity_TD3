@@ -18,7 +18,6 @@ public class Girl : MonoBehaviour{
            mouvement.y -= gravity * Time.deltaTime;
         if(girlcontroller.isGrounded){
             mouvement.y = 2f;
-            Debug.LogError("Jump!");
         }
         girlcontroller.Move(mouvement * Time.deltaTime);
      }

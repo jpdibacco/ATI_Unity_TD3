@@ -49,13 +49,13 @@ public class MeatBoy : MonoBehaviour{
         // Création des gouttes quand MeatBoy court:
         if(mouvement.x != 0f){
             cptGoutte -= Time.deltaTime;
-            Debug.Log(cptGoutte);
+            //Debug.Log(cptGoutte);
             if(cptGoutte <= 0f){
                 cptGoutte = delayGoutte;
                 //Instantiate goutte... 
                 GameObject goutte = Instantiate(gouttePrefab, transform.position, Quaternion.identity) as GameObject;
                 // this is not working:
-                goutte.gameObject.GetComponent<Goutte>().velocity.x = mouvement.x*speed*Time.deltaTime;
+                goutte.GetComponent<Goutte>().velocity = new Vector3(mouvement.x,speed*Time.deltaTime,0f);
                 
             }
         }

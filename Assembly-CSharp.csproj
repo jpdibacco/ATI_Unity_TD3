@@ -37,11 +37,11 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Chronometer.cs" />
+     <Compile Include="Assets\Scripts\Fin.cs" />
      <Compile Include="Assets\Scripts\Girl.cs" />
      <Compile Include="Assets\Scripts\Goutte.cs" />
      <Compile Include="Assets\Scripts\MeatBoy.cs" />
      <Compile Include="Assets\Scripts\Scie.cs" />
-     <Compile Include="Assets\Scripts\Score.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/mnt/Data/Unity3d/2019.4.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
