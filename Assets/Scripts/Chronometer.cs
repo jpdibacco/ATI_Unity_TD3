@@ -12,21 +12,26 @@ public class Chronometer : MonoBehaviour
     private string bestScoreString;
 
     void Awake() {
-        b_minutes = (int)(bestScore/60f);
-        b_secondes = (int)(bestScore%60f);
-        b_fraction = (int)((bestScore*100f)%100f);
+        //this doesn't go here:
+        // b_minutes = (int)(bestScore/60f);
+        // b_secondes = (int)(bestScore%60f);
+        // b_fraction = (int)((bestScore*100f)%100f);
         //setBestScore(bestScore);
-        //Debug.Log("Best score is:" + bestScore);
         //PlayerPrefs.DeleteAll();
+        Debug.Log("Stat Best score is:" + bestScore);
     }
 
     void Start() {
         bestScore = 600f;
         if(PlayerPrefs.HasKey("BestScore") == true){
             bestScore = PlayerPrefs.GetInt("BestScore");
+            Debug.Log("Saved Best Score is: " + bestScore);
         }else{
             setBestScore(bestScore);   
         }
+        b_minutes = (int)(bestScore/60f);
+        b_secondes = (int)(bestScore%60f);
+        b_fraction = (int)((bestScore*100f)%100f);
         bestScoreString = "Best : " + b_minutes + ":" + b_secondes + ":" + b_fraction;
     }
     void setBestScore(float score){
@@ -44,10 +49,6 @@ public class Chronometer : MonoBehaviour
         Debug.Log("BestScore: " +bestScore);
         if(chrono<bestScore){
             setBestScore(chrono);
-            b_minutes = (int)(chrono/60f);
-            b_secondes = (int)(chrono%60f);
-            b_fraction = (int)((chrono*100f)%100f);
-
         }
         Debug.Log("Fin!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
