@@ -24,7 +24,7 @@ public class Goutte : MonoBehaviour{
     void OnBecameInvisible(){
         Destroy(gameObject);
     }
-      void DestroyObjectDelayed(){
+    void DestroyObjectDelayed(){
         // Kills the game object in 1 seconds after loading the object
         Destroy(gameObject, 1);
     }

@@ -41,7 +41,7 @@ public class MeatBoy : MonoBehaviour{
                 jumpsCount++;
                 mouvement.y = jumpSpeed;
             }
-            Debug.Log(jumpsCount);
+            //Debug.Log(jumpsCount);
             // Création des gouttes quand MeatBoy Jump:
             Instantiate(gouttePrefab, transform.position, Quaternion.identity);
         }
@@ -55,20 +55,21 @@ public class MeatBoy : MonoBehaviour{
                 //Instantiate goutte... 
                 GameObject goutte = Instantiate(gouttePrefab, transform.position, Quaternion.identity) as GameObject;
                 // this is not working:
-                goutte.GetComponent<Goutte>().velocity = new Vector3(mouvement.x,speed*Time.deltaTime,0f);
+                goutte.GetComponent<Goutte>().velocity = new Vector3(mouvement.x*speed,speed*Time.deltaTime,0f);
                 
             }
         }
     }
     // nice trick for debugging:
-    private void OnControllerColliderHit(ControllerColliderHit hit){
-        Debug.Log(hit.gameObject.name);
+    // private void OnControllerColliderHit(ControllerColliderHit hit){
+    //     Debug.Log(hit.gameObject.name);
 
-        hit.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-    }
+    //     hit.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+    // }
     public void Die(){
         // this is only working when i destroy the character...
-        transform.position = defaultPosition;
+        //transform.position = defaultPosition;
+        controller.Move(defaultPosition);
         controller.enabled = true;
         Debug.LogError("die");
     }

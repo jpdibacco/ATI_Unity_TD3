@@ -8,7 +8,6 @@ public class Chronometer : MonoBehaviour
     private float chrono = 0f;
     private float minutes, secondes, fraction;
     public Text chronoUI;
-    //public Text bestScoreText;
     private float bestScore = 600f;
     private string bestScoreString;
 
@@ -21,12 +20,10 @@ public class Chronometer : MonoBehaviour
     }
 
     void Start() {
-        //bestScore = 600f;
         if(PlayerPrefs.HasKey("BestScore") == true){
             bestScore = PlayerPrefs.GetInt("BestScore");
-            // setBestScore(bestScore);
         }else{
-            bestScore = 0f;
+            bestScore = 600f;
             setBestScore(bestScore);   
         }
         bestScoreString = "Best : " + minutes + ":" + secondes + ":" + fraction;

@@ -13,7 +13,9 @@ public class Scie : MonoBehaviour{
     void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "FraiseBoy"){
         //Instantiate goutte...
-        Instantiate(gouttePrefab, transform.position, Quaternion.identity);
+        for (int i = 0; i < 10; i++){
+        Instantiate(gouttePrefab, transform.position*speed*i, Quaternion.identity);
+        }
         GetComponent<Renderer>().material.mainTexture = tache;
         other.gameObject.GetComponent<MeatBoy>().Die();
         }
