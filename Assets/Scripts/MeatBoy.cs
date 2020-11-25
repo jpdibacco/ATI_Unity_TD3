@@ -13,11 +13,22 @@ public class MeatBoy : MonoBehaviour{
     public GameObject gouttePrefab;
     public float delayGoutte;
     private float cptGoutte;
-
+    private Vector3 defaultPosition;
     private void Awake() {
-        controller = GetComponent<CharacterController>();    
+        controller = GetComponent<CharacterController>();
+        if (controller == null){
+            Debug.LogError("Character Controller not found.");
+            enabled = false;
+        }
+        cptGoutte = delayGoutte;
+        defaultPosition = transform.position;
+    }
+    void Start() { 
     }
     void Update() {
+        // CONTROLS
+        if (controller == null)
+            return;
         mouvement.x = Input.GetAxisRaw("Horizontal");
         mouvement.y -= gravity * Time.deltaTime;
         if(controller.isGrounded){
@@ -26,22 +37,39 @@ public class MeatBoy : MonoBehaviour{
         }
         // this didn't work: if(Input.GetButtonDown("Jump")){
         if(Input.GetKeyDown(KeyCode.Space)){
-            mouvement.y = jumpSpeed;
             if(jumpsCount < jumpsMax){
                 jumpsCount++;
+                mouvement.y = jumpSpeed;
             }
             Debug.Log(jumpsCount);
+            // Création des gouttes quand MeatBoy Jump:
+            Instantiate(gouttePrefab, transform.position, Quaternion.identity);
         }
         controller.Move(mouvement * Time.deltaTime * speed);
         // Création des gouttes quand MeatBoy court:
         if(mouvement.x != 0f){
             cptGoutte -= Time.deltaTime;
-            if(cptGoutte<=0){
-                delayGoutte = 0;
+            Debug.Log(cptGoutte);
+            if(cptGoutte <= 0f){
+                cptGoutte = delayGoutte;
+                //Instantiate goutte... 
+                GameObject goutte = Instantiate(gouttePrefab, transform.position, Quaternion.identity) as GameObject;
+                // this is not working:
+                goutte.gameObject.GetComponent<Goutte>().velocity.x = mouvement.x*speed*Time.deltaTime;
+                
             }
         }
     }
+    // nice trick for debugging:
+    // private void OnControllerColliderHit(ControllerColliderHit hit){
+    //     Debug.Log(hit.gameObject.name);
 
-
-
+    //     hit.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+    // }
+    public void Die(){
+        // this is only working when i destroy the character...
+        transform.position = defaultPosition;
+        controller.enabled = true;
+        Debug.LogError("die");
+    }
 }
