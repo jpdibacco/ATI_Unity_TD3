@@ -47,6 +47,7 @@
      <Compile Include="Assets\Scripts\Scie.cs" />
      <Compile Include="Assets\Scripts\Victory.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
+     <Compile Include="Assets\Scripts\healthBar.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/mnt/Data/Unity3d/2019.4.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

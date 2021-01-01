@@ -19,6 +19,10 @@ public class MeatBoy : MonoBehaviour{
     public float jetPackHeatCount = 0.5f;
     public float jetPackSpeed;
     //public Vector3 flyVelocity;
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+    bool facingRight =  true;
     private void Awake() {
         controller = GetComponent<CharacterController>();
         if (controller == null){
@@ -29,6 +33,8 @@ public class MeatBoy : MonoBehaviour{
         defaultPosition = transform.position;
     }
     void Start() { 
+        currentHealth = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
     }
     void Update() {
         // CONTROLS
@@ -36,6 +42,11 @@ public class MeatBoy : MonoBehaviour{
             return;
         mouvement.x = Input.GetAxisRaw("Horizontal");
         mouvement.y -= gravity * Time.deltaTime;
+        if(mouvement.x<0 && facingRight){
+            flip();
+        }else if(mouvement.x>0&& !facingRight){
+            flip();
+        }
         if(controller.isGrounded){
             mouvement.y = 0;
             jumpsCount = 0;
@@ -67,18 +78,9 @@ public class MeatBoy : MonoBehaviour{
                 
             }
         }
-        // if(jetPackFuel <= 0){
-        //     gravity = 10;
-        //     mouvement.y = 0;
-        // }
-        // if(Input.GetKey(KeyCode.Space)){
-        //     jetPackFuel--;
-        //     mouvement.y = jumpSpeed/2 + jetPackFuel/100;
-        //     if(jetPackFuel==0){
-        //         mouvement.y = 0;
-        //     }
-        //     Debug.Log(jetPackFuel);
-        // }
+        if (Input.GetKeyDown(KeyCode.T)){
+            TakeDamage(20);
+        }
     }
     // nice trick for debugging:
     // private void OnControllerColliderHit(ControllerColliderHit hit){
@@ -103,5 +105,13 @@ public class MeatBoy : MonoBehaviour{
     public void SuperSpeed(){
         mouvement.y -= gravity * Time.deltaTime;
         controller.Move(mouvement * Time.deltaTime * jetPackSpeed);
+    }
+    public void TakeDamage(int damage){
+        currentHealth -= damage;
+        healthBar.setHealth(currentHealth);
+    }
+    void flip(){
+        facingRight = !facingRight;
+        transform.Rotate(0f,180f,0f);
     }
 }

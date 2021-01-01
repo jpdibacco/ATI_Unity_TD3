@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FraiseBoy
   - Goutte
+  - Enemy
   layers:
   - Default
   - TransparentFX
