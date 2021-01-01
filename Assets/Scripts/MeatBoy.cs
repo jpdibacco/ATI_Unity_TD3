@@ -14,6 +14,11 @@ public class MeatBoy : MonoBehaviour{
     public float delayGoutte;
     private float cptGoutte;
     private Vector3 defaultPosition;
+    public float jetPackHeat = 0f;
+    public float jetPackMaxHeat = 300;
+    public float jetPackHeatCount = 0.5f;
+    public float jetPackSpeed;
+    //public Vector3 flyVelocity;
     private void Awake() {
         controller = GetComponent<CharacterController>();
         if (controller == null){
@@ -34,9 +39,12 @@ public class MeatBoy : MonoBehaviour{
         if(controller.isGrounded){
             mouvement.y = 0;
             jumpsCount = 0;
+            // jetPackFuel++;
+            // Debug.Log(jetPackFuel);
+
         }
         // this didn't work: if(Input.GetButtonDown("Jump")){
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Z)){
             if(jumpsCount < jumpsMax){
                 jumpsCount++;
                 mouvement.y = jumpSpeed;
@@ -59,6 +67,18 @@ public class MeatBoy : MonoBehaviour{
                 
             }
         }
+        // if(jetPackFuel <= 0){
+        //     gravity = 10;
+        //     mouvement.y = 0;
+        // }
+        // if(Input.GetKey(KeyCode.Space)){
+        //     jetPackFuel--;
+        //     mouvement.y = jumpSpeed/2 + jetPackFuel/100;
+        //     if(jetPackFuel==0){
+        //         mouvement.y = 0;
+        //     }
+        //     Debug.Log(jetPackFuel);
+        // }
     }
     // nice trick for debugging:
     // private void OnControllerColliderHit(ControllerColliderHit hit){
@@ -72,5 +92,16 @@ public class MeatBoy : MonoBehaviour{
         controller.Move(defaultPosition);
         controller.enabled = true;
         Debug.LogError("die");
+    }
+    public void Fly(){
+       mouvement.y +=0.11f*jetPackSpeed;
+       if(jetPackHeat > jetPackMaxHeat){
+           mouvement.y = 0 - gravity/10;
+       }
+
+    }
+    public void SuperSpeed(){
+        mouvement.y -= gravity * Time.deltaTime;
+        controller.Move(mouvement * Time.deltaTime * jetPackSpeed);
     }
 }
