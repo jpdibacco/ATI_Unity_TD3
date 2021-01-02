@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class JetPackBar : MonoBehaviour{
+    
     public Slider slider;
     public Gradient gradient;
     public Image fill;
