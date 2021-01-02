@@ -51,10 +51,10 @@ public class Enemy : MonoBehaviour
 
     }
     private void SearchWalkPoint(){
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-        float randomY = Random.Range(-walkPointRange, walkPointRange);
-        walkPoint =  new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z);
-        if(Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround)){
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        //float randomY = Random.Range(-walkPointRange, walkPointRange);
+        walkPoint =  new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        if(Physics.Raycast(walkPoint,transform.forward, 2f, whatIsGround)){
             walkPointSet = true;
         }
     }
