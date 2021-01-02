@@ -88,6 +88,7 @@ public class MeatBoy : MonoBehaviour{
         if(currentHealth<=0){
             Die();
         }
+        heatBar.setJetPack(jetPackHeat);
     }
     // nice trick for debugging:
     // private void OnControllerColliderHit(ControllerColliderHit hit){
@@ -111,7 +112,6 @@ public class MeatBoy : MonoBehaviour{
     }
     public void Fly(){
        mouvement.y +=0.11f*jetPackSpeed;
-       heatBar.setJetPack(jetPackHeat);
        if(jetPackHeat > jetPackMaxHeat){
            mouvement.y = 0 - gravity/10;
        }
