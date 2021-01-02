@@ -22,7 +22,10 @@ public class MeatBoy : MonoBehaviour{
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
+    public JetPackBar heatBar;
     bool facingRight =  true;
+    public int reSpawnTime = 2;
+    // public GameObject respawnPosition;
     private void Awake() {
         controller = GetComponent<CharacterController>();
         if (controller == null){
@@ -35,6 +38,7 @@ public class MeatBoy : MonoBehaviour{
     void Start() { 
         currentHealth = maxHealth;
         healthBar.setMaxHealth(maxHealth);
+        heatBar.setMaxJetPack(jetPackMaxHeat);
     }
     void Update() {
         // CONTROLS
@@ -81,8 +85,8 @@ public class MeatBoy : MonoBehaviour{
                 
             }
         }
-        if (Input.GetKeyDown(KeyCode.T)){
-            TakeDamage(20);
+        if(currentHealth<=0){
+            Die();
         }
     }
     // nice trick for debugging:
@@ -94,12 +98,20 @@ public class MeatBoy : MonoBehaviour{
     public void Die(){
         // this is only working when i destroy the character...
         //transform.position = defaultPosition;
-        controller.Move(defaultPosition);
-        controller.enabled = true;
+        controller.enabled = false;
+        //Destroy(gameObject);
+        Invoke("MoveBody", reSpawnTime);
         Debug.LogError("die");
+    }
+    public void MoveBody(){
+        currentHealth = maxHealth;
+        controller.enabled = true;
+        Vector3 rp = GameObject.FindGameObjectWithTag("respawn").transform.position;
+        controller.Move(rp);
     }
     public void Fly(){
        mouvement.y +=0.11f*jetPackSpeed;
+       heatBar.setJetPack(jetPackHeat);
        if(jetPackHeat > jetPackMaxHeat){
            mouvement.y = 0 - gravity/10;
        }

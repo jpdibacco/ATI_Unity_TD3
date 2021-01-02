@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
-    public GameObject projectile;
     //Patroling:
 
     public Vector3 walkPoint;
@@ -23,6 +22,9 @@ public class Enemy : MonoBehaviour
     //States:
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+
+    //damage to player:
+    public int damage = 20;
 
     private void Awake(){
         player = GameObject.Find("FraiseBoy").transform;
@@ -62,11 +64,11 @@ public class Enemy : MonoBehaviour
         agent.SetDestination(player.position);
     }
     private void AttackPlayer(){
+        EnemyWeapon enemyWeapon = gameObject.GetComponent<EnemyWeapon>();
         agent.SetDestination(transform.position);
         transform.LookAt(player);
         if(!alreadyAttacked){
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            enemyWeapon.Shoot();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -90,5 +92,17 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+    // private void Fire(){
+    //      Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+    //      Instantiate(rb, transform.position, transform.rotation);
+    //      rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+    // }
+    void OnTriggerEnter(Collider hitInfo) {
+        MeatBoy player = hitInfo.GetComponent<MeatBoy>();
+        Debug.Log(hitInfo);
+         if (player != null){
+             player.TakeDamage(damage);
+         }
     }
 }

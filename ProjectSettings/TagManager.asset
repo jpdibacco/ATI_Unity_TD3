@@ -7,6 +7,8 @@ TagManager:
   - FraiseBoy
   - Goutte
   - Enemy
+  - Projectile
+  - respawn
   layers:
   - Default
   - TransparentFX
