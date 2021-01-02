@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705318538752250557}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.11, y: 2.08, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -37,7 +37,7 @@ Transform:
   - {fileID: 1705318540187119406}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &1705318538752250555
 CharacterController:
   m_ObjectHideFlags: 0
@@ -74,7 +74,13 @@ MonoBehaviour:
   jumpsMax: 1
   gouttePrefab: {fileID: 0}
   delayGoutte: 3
-  jetPackFuel: 100
+  jetPackHeat: 0
+  jetPackMaxHeat: 300
+  jetPackHeatCount: 0.5
+  jetPackSpeed: 0
+  maxHealth: 100
+  currentHealth: 0
+  healthBar: {fileID: 0}
 --- !u!1 &1705318539513416215
 GameObject:
   m_ObjectHideFlags: 0

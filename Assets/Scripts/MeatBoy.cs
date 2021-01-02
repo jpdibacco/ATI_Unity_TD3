@@ -42,6 +42,9 @@ public class MeatBoy : MonoBehaviour{
             return;
         mouvement.x = Input.GetAxisRaw("Horizontal");
         mouvement.y -= gravity * Time.deltaTime;
+        if(mouvement.x>0){
+             this.gameObject.transform.rotation = Quaternion.Euler(0f,0f,0f);
+        }
         if(mouvement.x<0 && facingRight){
             flip();
         }else if(mouvement.x>0&& !facingRight){
@@ -112,6 +115,7 @@ public class MeatBoy : MonoBehaviour{
     }
     void flip(){
         facingRight = !facingRight;
-        transform.Rotate(0f,180f,0f);
+        //transform.Rotate(0f,180f,0f);
+        this.gameObject.transform.rotation = Quaternion.Euler(0f,180f,0f);
     }
 }
